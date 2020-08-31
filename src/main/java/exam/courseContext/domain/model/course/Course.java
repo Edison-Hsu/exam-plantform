@@ -31,6 +31,7 @@ public class Course implements Entity<Course> {
     }
 
     public static Course create(CourseId id, String videoLink, Examination examination) {
+        validateVideoLink(videoLink);
         return new Course(id, videoLink, examination);
     }
 
@@ -50,6 +51,17 @@ public class Course implements Entity<Course> {
     public void update(String videoLink, Examination examination) {
         this.videoLink = videoLink;
         this.examination = examination;
+    }
+
+    public static void validateVideoLink(String link) {
+        String[] schemes = {"http://", "https://"};
+
+        for (String schema : schemes) {
+            if (link.startsWith(schema)) {
+                return;
+            }
+        }
+        throw new IllegalVideoLinkException(link);
     }
 
     @Override

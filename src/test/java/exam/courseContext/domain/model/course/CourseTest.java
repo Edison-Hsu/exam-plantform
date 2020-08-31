@@ -2,8 +2,7 @@ package exam.courseContext.domain.model.course;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class CourseTest {
 
@@ -35,7 +34,7 @@ class CourseTest {
     }
 
     @Test
-    void should_update_video_link_ok () {
+    void should_update_video_link_ok() {
         CourseId id = new CourseId("course-id-1");
         String vlink = "https://vlink";
         Course.Examination examination =
@@ -46,5 +45,22 @@ class CourseTest {
 
         assertNotNull(course);
         assertEquals(course.getVideoLink(), "https://vlink-2");
+    }
+
+    @Test
+    void should_raise_illegal_video_link_exception() {
+        assertThrows(
+                IllegalVideoLinkException.class,
+                () -> {
+                    CourseId id = new CourseId("course-id-1");
+                    String vlink = "ftp://vlink";
+                    Course.Examination examination =
+                            new Course.Examination("exam-id", "exam-name", "exam-desc");
+
+                    final Course course = Course.create(id, vlink, examination);
+
+                    assertNotNull(course);
+                    assertEquals(course.getVideoLink(), "https://vlink-2");
+                });
     }
 }
