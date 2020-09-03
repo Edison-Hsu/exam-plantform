@@ -50,7 +50,7 @@ public class CourseController {
 
     @PatchMapping("/courses/{courseId}/publishing")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void update(@PathVariable String courseId){
+    void publish(@PathVariable String courseId){
         courseApplicationService.publish(courseId);
     }
 
