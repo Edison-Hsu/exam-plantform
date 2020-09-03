@@ -29,4 +29,5 @@
 | 获取所有课程信息 | GET    | /courses               |
 | 获取课程详情    | GET    | /courses/:course_id    |
 | 创建课程       | POST   | /courses               |
+| 发布课程       | PATCH  | /courses/:course_id/publishing    |
 | 更新课程       | PUT    | /courses/:course_id    |
