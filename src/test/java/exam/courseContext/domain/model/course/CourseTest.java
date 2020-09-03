@@ -40,11 +40,30 @@ class CourseTest {
         Course.Examination examination =
                 new Course.Examination("exam-id", "exam-name", "exam-desc");
 
+        Course.Examination exam2 =
+                new Course.Examination("exam-2-id", "exam-2-name", "exam-2-desc");
+
         final Course course = Course.create(id, vlink, examination);
-        course.update("https://vlink-2");
+        course.update("https://vlink-2", exam2);
 
         assertNotNull(course);
         assertEquals(course.getVideoLink(), "https://vlink-2");
+        assertEquals(course.getExamination().getId(), exam2.getId());
+    }
+
+    @Test
+    void should_raise_illegal_video_link_exception_when_update_course() {
+        assertThrows(
+                IllegalVideoLinkException.class,
+                () -> {
+                    CourseId id = new CourseId("course-id-1");
+                    String vlink = "https://vlink";
+                    Course.Examination examination =
+                            new Course.Examination("exam-id", "exam-name", "exam-desc");
+
+                    final Course course = Course.create(id, vlink, examination);
+                    course.update("ftp://vlink-invalid");
+                });
     }
 
     @Test
