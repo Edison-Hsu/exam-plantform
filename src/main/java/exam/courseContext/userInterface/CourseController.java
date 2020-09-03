@@ -48,7 +48,7 @@ public class CourseController {
        courseApplicationService.updateCourse(courseId, createCourseCommand);
     }
 
-    @PutMapping("/courses/{courseId}/publishing")
+    @PatchMapping("/courses/{courseId}/publishing")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void update(@PathVariable String courseId){
         courseApplicationService.publish(courseId);
